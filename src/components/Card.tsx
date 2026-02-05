@@ -3,5 +3,5 @@ interface Props {
 }
 
 export default function Card({ children }: Props) {
-  return <div className="bg-white p-5 border border-gray-200 rounded-lg shadow">{children}</div>;
+  return <div className="bg-white p-5 border border-gray-200 rounded-4xl shadow">{children}</div>;
 }

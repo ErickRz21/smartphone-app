@@ -1,4 +1,6 @@
-import { User, Report, TeamMember, Activity } from "@/lib/definitions";
+import { User, Report, TeamMember, Activity, Smartphone } from "@/lib/definitions";
+import fs from "fs";
+import path from "path";
 
 export async function getUser(): Promise<User> {
   return new Promise((resolve) => {
@@ -110,5 +112,58 @@ export async function getActivities(): Promise<Activity[]> {
     ];
 
     setTimeout(() => resolve(activities), 500);
+  });
+}
+
+export async function getSmartphones(): Promise<Smartphone[]> {
+  return new Promise((resolve, reject) => {
+    try {
+      const csvPath = path.join(process.cwd(), "smartphones.csv");
+      const fileContent = fs.readFileSync(csvPath, "utf-8");
+      const lines = fileContent.split("\n");
+
+      // Skip header and parse data
+      const smartphones: Smartphone[] = [];
+      for (let i = 1; i < lines.length && i <= 500; i++) { // Limit to first 500 records for performance
+        const line = lines[i].trim();
+        if (!line) continue;
+
+        const values = line.split(",");
+        if (values.length < 25) continue;
+
+        smartphones.push({
+          id: parseInt(values[0]),
+          brand_name: values[1],
+          model: values[2],
+          screen_size: parseFloat(values[3]),
+          price: parseInt(values[4]),
+          release_year: parseInt(values[5]),
+          operating_system: values[6],
+          battery_capacity: parseInt(values[7]),
+          ram: parseInt(values[8]),
+          storage: parseInt(values[9]),
+          camera_mp: parseInt(values[10]),
+          front_camera_mp: parseInt(values[11]),
+          refresh_rate: parseInt(values[12]),
+          weight: parseInt(values[13]),
+          thickness: parseFloat(values[14]),
+          body_material: values[15],
+          chipset: values[16],
+          gpu: values[17],
+          dual_sim: values[18],
+          network_support: values[19],
+          bluetooth_version: values[20],
+          wifi_version: values[21],
+          usb_type: values[22],
+          fast_charging: values[23],
+          fingerprint_sensor: values[24],
+        });
+      }
+
+      resolve(smartphones);
+    } catch (error) {
+      console.error("Error reading smartphones.csv:", error);
+      reject(error);
+    }
   });
 }

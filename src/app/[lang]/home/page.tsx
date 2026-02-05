@@ -36,7 +36,7 @@ async function PageContent({ locale }: PageContentProps) {
 
   return (
     <div className="space-y-8">
-      <div className="grid gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+      {/* <div className="grid gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
         <div>
           <Card>
             <CardHeader>{intl.formatMessage({ id: "page.home.activities" })}</CardHeader>
@@ -71,7 +71,7 @@ async function PageContent({ locale }: PageContentProps) {
               {teamMembers.map((teamMember) => (
                 <div key={teamMember.username} className="flex items-center flex-nowrap mt-3">
                   <div>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    
                     <img
                       src={teamMember.profileImage}
                       alt="Profile image"
@@ -91,7 +91,7 @@ async function PageContent({ locale }: PageContentProps) {
             </CardBody>
           </Card>
         </div>
-      </div>
+      </div> */}
 
       {/* Smartphone Table Section */}
       <div>

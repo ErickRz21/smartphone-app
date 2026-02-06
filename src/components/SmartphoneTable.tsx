@@ -1,21 +1,47 @@
 "use client";
 
 import { Smartphone } from "@/lib/definitions";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 interface SmartphoneTableProps {
   smartphones: Smartphone[];
 }
 
 export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-  const [selectedOS, setSelectedOS] = useState<string[]>([]);
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-  const [minRAM, setMinRAM] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const itemsPerPage = 20;
+
+  // Read state from URL search parameters
+  const searchTerm = searchParams.get("search") || "";
+  const selectedBrands = searchParams.get("brands")?.split(",").filter(Boolean) || [];
+  const selectedOS = searchParams.get("os")?.split(",").filter(Boolean) || [];
+  const minPrice = searchParams.get("minPrice") || "";
+  const maxPrice = searchParams.get("maxPrice") || "";
+  const minRAM = searchParams.get("minRAM") || "";
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+
+  // Helper function to update URL search parameters
+  const updateSearchParams = useCallback(
+    (updates: Record<string, string | string[] | null>) => {
+      const params = new URLSearchParams(searchParams.toString());
+      
+      Object.entries(updates).forEach(([key, value]) => {
+        if (value === null || value === "" || (Array.isArray(value) && value.length === 0)) {
+          params.delete(key);
+        } else if (Array.isArray(value)) {
+          params.set(key, value.join(","));
+        } else {
+          params.set(key, value);
+        }
+      });
+
+      router.push(`${pathname}?${params.toString()}`, { scroll: false });
+    },
+    [searchParams, pathname, router]
+  );
 
   // Get unique brands and OS
   const brands = useMemo(() => {
@@ -69,26 +95,28 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
   }, [filteredSmartphones, currentPage]);
 
   // Reset to page 1 when filters change
-  useMemo(() => {
-    setCurrentPage(1);
-  }, [searchTerm, selectedBrands, selectedOS, minPrice, maxPrice, minRAM]);
+  useEffect(() => {
+    if (currentPage !== 1 && searchParams.toString()) {
+      updateSearchParams({ page: "1" });
+    }
+  }, [searchTerm, selectedBrands.join(","), selectedOS.join(","), minPrice, maxPrice, minRAM]);
 
   const toggleBrand = (brand: string) => {
-    setSelectedBrands((prev) => (prev.includes(brand) ? prev.filter((b) => b !== brand) : [...prev, brand]));
+    const newBrands = selectedBrands.includes(brand)
+      ? selectedBrands.filter((b) => b !== brand)
+      : [...selectedBrands, brand];
+    updateSearchParams({ brands: newBrands, page: "1" });
   };
 
   const toggleOS = (os: string) => {
-    setSelectedOS((prev) => (prev.includes(os) ? prev.filter((o) => o !== os) : [...prev, os]));
+    const newOS = selectedOS.includes(os)
+      ? selectedOS.filter((o) => o !== os)
+      : [...selectedOS, os];
+    updateSearchParams({ os: newOS, page: "1" });
   };
 
   const clearFilters = () => {
-    setSearchTerm("");
-    setSelectedBrands([]);
-    setSelectedOS([]);
-    setMinPrice("");
-    setMaxPrice("");
-    setMinRAM("");
-    setCurrentPage(1);
+    router.push(pathname, { scroll: false });
   };
 
   return (
@@ -108,7 +136,7 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
           <input
             type="text"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => updateSearchParams({ search: e.target.value, page: "1" })}
             placeholder="Ej: iPhone, Galaxy..."
           />
         </div>
@@ -147,13 +175,13 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
               <input
                 type="number"
                 value={minPrice}
-                onChange={(e) => setMinPrice(e.target.value)}
+                onChange={(e) => updateSearchParams({ minPrice: e.target.value, page: "1" })}
                 placeholder="Mínimo"
               />
               <input
                 type="number"
                 value={maxPrice}
-                onChange={(e) => setMaxPrice(e.target.value)}
+                onChange={(e) => updateSearchParams({ maxPrice: e.target.value, page: "1" })}
                 placeholder="Máximo"
               />
             </div>
@@ -162,7 +190,7 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
           {/* RAM Filter */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">RAM Mínima (GB)</label>
-            <input type="number" value={minRAM} onChange={(e) => setMinRAM(e.target.value)} placeholder="Ej: 8" />
+            <input type="number" value={minRAM} onChange={(e) => updateSearchParams({ minRAM: e.target.value, page: "1" })} placeholder="Ej: 8" />
           </div>
         </div>
 
@@ -211,14 +239,14 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
           <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
             <div className="flex-1 flex justify-between sm:hidden">
               <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                onClick={() => updateSearchParams({ page: String(Math.max(currentPage - 1, 1)) })}
                 disabled={currentPage === 1}
                 className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Anterior
               </button>
               <button
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                onClick={() => updateSearchParams({ page: String(Math.min(currentPage + 1, totalPages)) })}
                 disabled={currentPage === totalPages}
                 className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
@@ -235,7 +263,7 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
               <div>
                 <nav className="relative z-0 inline-flex rounded-xl shadow-sm -space-x-px">
                   <button
-                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                    onClick={() => updateSearchParams({ page: String(Math.max(currentPage - 1, 1)) })}
                     disabled={currentPage === 1}
                     className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
@@ -255,7 +283,7 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
                     return (
                       <button
                         key={pageNum}
-                        onClick={() => setCurrentPage(pageNum)}
+                        onClick={() => updateSearchParams({ page: String(pageNum) })}
                         className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
                           currentPage === pageNum
                             ? "z-10 bg-indigo-50 border-indigo-500 text-indigo-600"
@@ -267,7 +295,7 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
                     );
                   })}
                   <button
-                    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                    onClick={() => updateSearchParams({ page: String(Math.min(currentPage + 1, totalPages)) })}
                     disabled={currentPage === totalPages}
                     className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >

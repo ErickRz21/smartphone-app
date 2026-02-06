@@ -9,7 +9,7 @@ export async function getUser(): Promise<User> {
       lastName: "Doe",
       email: "john.doe@example.com",
       profileImage:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+        "https://images.unsplash.com/vector-1767626090408-a23fae603963?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     };
 
     setTimeout(() => resolve(user), 500);

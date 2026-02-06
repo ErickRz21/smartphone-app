@@ -54,7 +54,7 @@ export default function NavbarContent({ user, locale, messages }: Props) {
 
   return (
     <IntlProvider locale={locale} messages={messages}>
-      <nav className="sticky top-0 left-0 z-50 w-full bg-white border-b border-gray-200">
+      <nav className="sticky top-1 left-0 z-50 w-full bg-transparent">
         <div className="h-16 flex items-center justify-between">
           <div className="flex items-center mx-2">
             <div className="relative mx-1 lg:hidden">
@@ -94,7 +94,7 @@ export default function NavbarContent({ user, locale, messages }: Props) {
             </div>
           </div>
 
-          <div className="flex items-center mx-2">
+          <div className="flex items-center m-2 p-2 bg-white rounded-full shadow-md ">
             <div className="relative mx-1">
               <button
                 type="button"

@@ -75,6 +75,9 @@ export default async function Sidebar({ locale }: Props) {
 
           <div className="mx-4">{intl.formatMessage({ id: "common.navigation.discover" })}</div>
         </SidebarLink>
+        <div className="flex h-16 items-center justify-center bottom-0 mt-auto absolute w-full">
+        <h1 className="text-xs font-bold text-neutral-200">Made by Aguacate © 2026</h1>
+        </div>
       </div>
     </div>
   );

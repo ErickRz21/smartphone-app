@@ -34,9 +34,9 @@ async function PageContent({ locale }: PageContentProps) {
 
   return (
     <div>
-      <div className="grid gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
         <Card>
-          <div className="flex justify-center items-center">
+          <div className="flex items-center justify-center">
             <Image src="/images/deploy-nextjs-on-vercel.png" alt="Deploy Next.js on Vercel" width={300} height={203} />
           </div>
 

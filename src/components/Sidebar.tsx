@@ -11,9 +11,9 @@ export default async function Sidebar({ locale }: Props) {
   const intl = await getIntl(locale);
 
   return (
-    <div className="fixed top-0 left-0 z-50 w-60 h-[calc(100%-1.5rem)] bg-white hidden lg:block text-black shadow-neutral-400 shadow-inner m-3 rounded-3xl">
-      <div className="flex items-center justify-center h-16 w-[calc(100%-2rem)] mx-4">
-        <div className="text-2xl text-black font-bold">Dashboard</div>
+    <div className="fixed top-0 left-0 z-50 m-3 hidden h-[calc(100%-1.5rem)] w-60 rounded-3xl bg-white text-black shadow-inner shadow-neutral-400 lg:block">
+      <div className="mx-4 flex h-16 w-[calc(100%-2rem)] items-center justify-center">
+        <div className="text-2xl font-bold text-black">Dashboard</div>
       </div>
 
       <hr className="h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-25" />

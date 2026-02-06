@@ -27,7 +27,7 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
   const updateSearchParams = useCallback(
     (updates: Record<string, string | string[] | null>) => {
       const params = new URLSearchParams(searchParams.toString());
-      
+
       Object.entries(updates).forEach(([key, value]) => {
         if (value === null || value === "" || (Array.isArray(value) && value.length === 0)) {
           params.delete(key);
@@ -40,7 +40,7 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
 
       router.push(`${pathname}?${params.toString()}`, { scroll: false });
     },
-    [searchParams, pathname, router]
+    [searchParams, pathname, router],
   );
 
   // Get unique brands and OS
@@ -109,9 +109,7 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
   };
 
   const toggleOS = (os: string) => {
-    const newOS = selectedOS.includes(os)
-      ? selectedOS.filter((o) => o !== os)
-      : [...selectedOS, os];
+    const newOS = selectedOS.includes(os) ? selectedOS.filter((o) => o !== os) : [...selectedOS, os];
     updateSearchParams({ os: newOS, page: "1" });
   };
 
@@ -122,17 +120,17 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
   return (
     <div className="space-y-4">
       {/* Filters Section */}
-      <div className="bg-white p-4 rounded-2xl shadow-md space-y-4">
-        <div className="flex justify-between items-center">
+      <div className="space-y-4 rounded-2xl bg-white p-4 shadow-md">
+        <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold">Filtros</h3>
-          <button onClick={clearFilters} className="text-sm text-indigo-600 hover:text-indigo-800 cursor-pointer">
+          <button onClick={clearFilters} className="cursor-pointer text-sm text-indigo-600 hover:text-indigo-800">
             Limpiar filtros
           </button>
         </div>
 
         {/* Search */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Buscar modelo</label>
+          <label className="mb-1 block text-sm font-medium text-gray-700">Buscar modelo</label>
           <input
             type="text"
             value={searchTerm}
@@ -141,13 +139,13 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Marca</label>
-            <div className="max-h-32 overflow-y-auto border border-gray-300 rounded-xl p-2 space-y-1">
+            <label className="mb-1 block text-sm font-medium text-gray-700">Marca</label>
+            <div className="max-h-32 space-y-1 overflow-y-auto rounded-xl border border-gray-300 p-2">
               {brands.map((brand) => (
-                <label key={brand} className="flex items-center space-x-2 cursor-pointer">
+                <label key={brand} className="flex cursor-pointer items-center space-x-2">
                   <input type="checkbox" checked={selectedBrands.includes(brand)} onChange={() => toggleBrand(brand)} />
                   <span className="text-lg lg:text-sm">{brand}</span>
                 </label>
@@ -157,10 +155,10 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
 
           {/* OS Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Sistema Operativo</label>
+            <label className="mb-1 block text-sm font-medium text-gray-700">Sistema Operativo</label>
             <div className="space-y-1">
               {operatingSystems.map((os) => (
-                <label key={os} className="flex items-center space-x-2 cursor-pointer">
+                <label key={os} className="flex cursor-pointer items-center space-x-2">
                   <input type="checkbox" checked={selectedOS.includes(os)} onChange={() => toggleOS(os)} />
                   <span className="text-lg lg:text-sm">{os}</span>
                 </label>
@@ -170,7 +168,7 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
 
           {/* Price Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Rango de Precio</label>
+            <label className="mb-1 block text-sm font-medium text-gray-700">Rango de Precio</label>
             <div className="space-y-2">
               <input
                 type="number"
@@ -189,8 +187,13 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
 
           {/* RAM Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">RAM Mínima (GB)</label>
-            <input type="number" value={minRAM} onChange={(e) => updateSearchParams({ minRAM: e.target.value, page: "1" })} placeholder="Ej: 8" />
+            <label className="mb-1 block text-sm font-medium text-gray-700">RAM Mínima (GB)</label>
+            <input
+              type="number"
+              value={minRAM}
+              onChange={(e) => updateSearchParams({ minRAM: e.target.value, page: "1" })}
+              placeholder="Ej: 8"
+            />
           </div>
         </div>
 
@@ -200,7 +203,7 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl shadow-md overflow-hidden">
+      <div className="overflow-hidden rounded-2xl bg-white shadow-md">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
@@ -216,12 +219,12 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
                 <th>Cámara (MP)</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200 bg-white">
               {paginatedSmartphones.map((phone) => (
                 <tr key={phone.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{phone.brand_name}</td>
+                  <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">{phone.brand_name}</td>
                   <td>{phone.model}</td>
-                  <td className="text-green-600! font-semibold">${phone.price.toLocaleString()}</td>
+                  <td className="font-semibold text-green-600!">${phone.price.toLocaleString()}</td>
                   <td>{phone.operating_system}</td>
                   <td>{phone.ram}</td>
                   <td>{phone.storage}</td>
@@ -236,24 +239,24 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-            <div className="flex-1 flex justify-between sm:hidden">
+          <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+            <div className="flex flex-1 justify-between sm:hidden">
               <button
                 onClick={() => updateSearchParams({ page: String(Math.max(currentPage - 1, 1)) })}
                 disabled={currentPage === 1}
-                className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="relative inline-flex items-center rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Anterior
               </button>
               <button
                 onClick={() => updateSearchParams({ page: String(Math.min(currentPage + 1, totalPages)) })}
                 disabled={currentPage === totalPages}
-                className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="relative ml-3 inline-flex items-center rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Siguiente
               </button>
             </div>
-            <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+            <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm text-gray-700">
                   Página <span className="font-medium">{currentPage}</span> de{" "}
@@ -261,11 +264,11 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
                 </p>
               </div>
               <div>
-                <nav className="relative z-0 inline-flex rounded-xl shadow-sm -space-x-px">
+                <nav className="relative z-0 inline-flex -space-x-px rounded-xl shadow-sm">
                   <button
                     onClick={() => updateSearchParams({ page: String(Math.max(currentPage - 1, 1)) })}
                     disabled={currentPage === 1}
-                    className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     Anterior
                   </button>
@@ -284,10 +287,10 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
                       <button
                         key={pageNum}
                         onClick={() => updateSearchParams({ page: String(pageNum) })}
-                        className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
+                        className={`relative inline-flex items-center border px-4 py-2 text-sm font-medium ${
                           currentPage === pageNum
-                            ? "z-10 bg-indigo-50 border-indigo-500 text-indigo-600"
-                            : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50"
+                            ? "z-10 border-indigo-500 bg-indigo-50 text-indigo-600"
+                            : "border-gray-300 bg-white text-gray-500 hover:bg-gray-50"
                         }`}
                       >
                         {pageNum}
@@ -297,7 +300,7 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
                   <button
                     onClick={() => updateSearchParams({ page: String(Math.min(currentPage + 1, totalPages)) })}
                     disabled={currentPage === totalPages}
-                    className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     Siguiente
                   </button>

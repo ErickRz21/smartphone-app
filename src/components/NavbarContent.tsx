@@ -55,12 +55,12 @@ export default function NavbarContent({ user, locale, messages }: Props) {
   return (
     <IntlProvider locale={locale} messages={messages}>
       <nav className="sticky top-1 left-0 z-50 w-full bg-transparent">
-        <div className="h-16 flex items-center justify-between">
-          <div className="flex items-center mx-2">
+        <div className="flex h-16 items-center justify-between">
+          <div className="mx-2 flex items-center">
             <div className="relative mx-1 lg:hidden">
               <button
                 type="button"
-                className="rounded-full p-1 text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-600"
+                className="rounded-full p-1 text-gray-500 hover:text-gray-600 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-600 focus:outline-none"
                 id="app-menu-button"
                 aria-haspopup="true"
                 aria-expanded={appMenuOpen}
@@ -94,11 +94,11 @@ export default function NavbarContent({ user, locale, messages }: Props) {
             </div>
           </div>
 
-          <div className="flex items-center m-2 p-2 bg-white rounded-full shadow-md ">
+          <div className="m-2 flex items-center rounded-full bg-white p-2 shadow-md">
             <div className="relative mx-1">
               <button
                 type="button"
-                className="rounded-full p-1 text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-600"
+                className="rounded-full p-1 text-gray-500 hover:text-gray-600 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-600 focus:outline-none"
                 id="lang-switcher-menu-button"
                 aria-haspopup="true"
                 aria-expanded={langSwitcherMenuOpen}
@@ -138,7 +138,7 @@ export default function NavbarContent({ user, locale, messages }: Props) {
             <div className="relative mx-1">
               <button
                 type="button"
-                className="rounded-full p-1 text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-600"
+                className="rounded-full p-1 text-gray-500 hover:text-gray-600 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-600 focus:outline-none"
               >
                 <svg
                   className="h-6 w-6"
@@ -160,7 +160,7 @@ export default function NavbarContent({ user, locale, messages }: Props) {
             <div className="relative mx-1">
               <button
                 type="button"
-                className="rounded-full p-1 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-600"
+                className="rounded-full p-1 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-600 focus:outline-none"
                 id="user-menu-button"
                 aria-haspopup="true"
                 aria-expanded={userMenuOpen}
@@ -202,8 +202,8 @@ const Menu = forwardRef<HTMLDivElement, MenuProps>(function Menu({ align = "righ
       ref={ref}
       role="menu"
       className={clsx(
-        "absolute z-10 w-48 mt-2 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
-        { "left=0": align === "left", "right-0": align === "right" }
+        "ring-opacity-5 absolute z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 shadow-lg ring-black focus:outline-none",
+        { "left=0": align === "left", "right-0": align === "right" },
       )}
       aria-orientation="vertical"
       tabIndex={-1}

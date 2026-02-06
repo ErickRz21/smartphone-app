@@ -10,8 +10,8 @@ import { i18n } from "../../../i18n-config";
 import "@/app/globals.css";
 
 export const metadata = {
-  title: "Next.js i18n Dashboard Template",
-  description: "How to create internationalized dasboard with Next.js",
+  title: "Smartphone Dashboard",
+  description: "Smartphone Dashboard",
 };
 
 interface Props {

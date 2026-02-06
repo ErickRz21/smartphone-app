@@ -11,12 +11,13 @@ import { Locale } from "@/lib/definitions";
 import { getActivities, getTeamMembers, getSmartphones } from "@/lib/data";
 
 interface Props {
-  params: {
+  params: Promise<{
     lang: Locale;
-  };
+  }>;
 }
 
-export default function Page({ params: { lang: locale } }: Props) {
+export default async function Page({ params }: Props) {
+  const { lang: locale } = await params;
   return (
     <Suspense fallback={<Spinner />}>
       <PageContent locale={locale} />

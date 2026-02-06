@@ -25,7 +25,7 @@ export default async function Root({ params, children }: Props) {
 
   return (
     <html lang={lang}>
-      <body className="relative min-h-screen overflow-y-auto bg-gray-50">
+      <body className="relative min-h-screen overflow-y-auto bg-neutral-100">
         <Navbar locale={lang} user={user} />
 
         <Content>{children}</Content>

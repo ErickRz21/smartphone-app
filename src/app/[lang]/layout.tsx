@@ -15,22 +15,23 @@ export const metadata = {
 };
 
 interface Props {
-  params: Promise<{ lang: Locale }>;
+  params: Promise<{ lang: string }>;
   children: React.ReactNode;
 }
 
 export default async function Root({ params, children }: Props) {
   const { lang } = await params;
+  const locale = lang as Locale;
   const user = await getUser();
 
   return (
-    <html lang={lang}>
+    <html lang={locale}>
       <body className="relative min-h-screen overflow-y-auto bg-neutral-100">
-        <Navbar locale={lang} user={user} />
+        <Navbar locale={locale} user={user} />
 
         <Content>{children}</Content>
 
-        <Sidebar locale={lang} />
+        <Sidebar locale={locale} />
       </body>
     </html>
   );

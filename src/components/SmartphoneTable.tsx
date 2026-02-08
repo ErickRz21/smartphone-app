@@ -120,7 +120,7 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
   return (
     <div className="space-y-4">
       {/* Filters Section */}
-      <div className="space-y-4 rounded-2xl bg-white p-4 shadow-md">
+      <div className="space-y-4 rounded-2xl bg-white p-4 shadow-md border border-neutral-100">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold">Filtros</h3>
           <button onClick={clearFilters} className="cursor-pointer text-sm text-indigo-600 hover:text-indigo-800">
@@ -203,10 +203,10 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
       </div>
 
       {/* Table */}
-      <div className="overflow-hidden rounded-2xl bg-white shadow-md">
+      <div className="overflow-hidden rounded-2xl bg-white shadow-md border border-neutral-100">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="bg-neutral-50">
               <tr>
                 <th>Marca</th>
                 <th>Modelo</th>
@@ -219,9 +219,9 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
                 <th>Cámara (MP)</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200 bg-white">
+            <tbody className="divide-y divide-neutral-200 bg-white">
               {paginatedSmartphones.map((phone) => (
-                <tr key={phone.id} className="hover:bg-gray-50">
+                <tr key={phone.id} className="hover:bg-neutral-50">
                   <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">{phone.brand_name}</td>
                   <td>{phone.model}</td>
                   <td className="font-semibold text-green-600!">${phone.price.toLocaleString()}</td>

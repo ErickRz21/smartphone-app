@@ -54,7 +54,7 @@ async function PageContent({ locale }: PageContentProps) {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="mb-2 text-3xl font-bold text-gray-900">Análisis de Datos CVU - Smartphones</h1>
+        <h1 className="mb-2 text-3xl font-bold text-gray-900">Análisis de Datos</h1>
         <p className="text-gray-600">
           Visualización de datos del catálogo de smartphones ({smartphones.length} dispositivos)
         </p>

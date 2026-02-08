@@ -83,8 +83,8 @@ export default function NavbarContent({ user, locale, messages }: Props) {
                   <MenuItem href={`/${locale}/home`}>
                     <FormattedMessage id="common.navigation.home" />
                   </MenuItem>
-                  <MenuItem href={`/${locale}/reports`}>
-                    <FormattedMessage id="common.navigation.reports" />
+                  <MenuItem href={`/${locale}/analysis`}>
+                    <FormattedMessage id="common.navigation.analysis" />
                   </MenuItem>
                   <MenuItem href={`/${locale}/discover`}>
                     <FormattedMessage id="common.navigation.discover" />

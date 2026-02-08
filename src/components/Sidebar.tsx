@@ -38,7 +38,7 @@ export default async function Sidebar({ locale }: Props) {
           <div className="mx-4">{intl.formatMessage({ id: "common.navigation.home" })}</div>
         </SidebarLink>
 
-        <SidebarLink href={`/${locale}/reports`}>
+        <SidebarLink href={`/${locale}/analysis`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -54,7 +54,7 @@ export default async function Sidebar({ locale }: Props) {
             />
           </svg>
 
-          <div className="mx-4">{intl.formatMessage({ id: "common.navigation.reports" })}</div>
+          <div className="mx-4">{intl.formatMessage({ id: "common.navigation.analysis" })}</div>
         </SidebarLink>
 
         <SidebarLink href={`/${locale}/discover`}>

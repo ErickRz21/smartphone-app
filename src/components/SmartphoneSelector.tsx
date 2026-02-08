@@ -97,7 +97,7 @@ export default function SmartphoneSelector({
       {/* Phone List */}
       <div className="rounded-3xl bg-white shadow-inner shadow-neutral-400 overflow-hidden">
         <div className="max-h-96 overflow-y-auto">
-          <div className="grid grid-cols-2 divide-y divide-neutral-200">
+          <div className="grid grid-cols-2">
             {filteredSmartphones.slice(0, 50).map((phone) => {
               const selected = isSelected(phone);
               return (
@@ -105,11 +105,11 @@ export default function SmartphoneSelector({
                   key={phone.id}
                   onClick={() => onSelectPhone(phone)}
                   disabled={!selected && !canSelect}
-                  className={`p-2 text-left transition-all ${
+                  className={`p-4 text-left transition-all duration-200 ${
                     selected
-                      ? "bg-indigo-50 border-l-4 border-indigo-500"
-                      : "hover:bg-neutral-50 border-l-4 border-transparent"
-                  } ${!selected && !canSelect ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+                      ? "bg-indigo-50/50 border-l-4 border-indigo-500"
+                      : "hover:bg-neutral-100/50 border-l-4 border-transparent"
+                  } ${!selected && !canSelect ? "opacity-40 cursor-not-allowed grayscale" : "cursor-pointer hover:scale-[1.01]"}`}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex-1">

@@ -14,9 +14,9 @@ export async function getUser(): Promise<User> {
   return user;
 }
 
-export async function getReports(): Promise<Report[]> {
-  const reports: Report[] = [];
-  return reports;
+export async function getAnalysis(): Promise<Report[]> {
+  const analysis: Report[] = [];
+  return analysis;
 }
 
 export async function getTeamMembers(): Promise<TeamMember[]> {

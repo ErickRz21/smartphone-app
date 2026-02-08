@@ -2,7 +2,7 @@
   "common.language-switcher": "{locale, select, en {English} de {Deutsch} fr {Français} other {Unknown}}",
   "common.navigation.discover": "Entdecken",
   "common.navigation.home": "Startseite",
-  "common.navigation.reports": "Berichte",
+  "common.navigation.analysis": "Analyse",
   "common.user-menu.settings": "Einstellungen",
   "common.user-menu.sign-out": "Abmelden",
   "common.user-menu.your-profile": "Ihr Profil",
@@ -11,5 +11,5 @@
   "page.home.activities": "Aktivitäten",
   "page.home.activity": "{action, select, COMMENT {Kommentierte Aufgabe} ACTIVATE {Aktivierter Job} STOP {Job gestoppt} other {Unbekannte Aktivität}}",
   "page.home.team": "Team",
-  "page.reports.no-data": "Es wurden keine Berichte gefunden."
+  "page.analysis.no-data": "Es wurden keine Analysen gefunden."
 }

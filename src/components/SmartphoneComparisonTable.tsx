@@ -8,33 +8,16 @@ interface SmartphoneComparisonTableProps {
   onRemovePhone: (id: number) => void;
 }
 
-export default function SmartphoneComparisonTable({
-  selectedPhones,
-  onRemovePhone,
-}: SmartphoneComparisonTableProps) {
+export default function SmartphoneComparisonTable({ selectedPhones, onRemovePhone }: SmartphoneComparisonTableProps) {
   if (selectedPhones.length === 0) {
     return (
-      <div className="rounded-3xl bg-white p-2 shadow-inner shadow-neutral-400 text-center">
+      <div className="rounded-3xl bg-white p-2 text-center shadow-inner shadow-neutral-400">
         <div className="mx-auto max-w-md">
-          <svg
-            className="mx-auto h-12 w-12 text-gray-400"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 4v16m8-8H4"
-            />
+          <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
-          <h3 className="mt-2 text-lg font-medium text-gray-900">
-            No hay teléfonos seleccionados
-          </h3>
-          <p className="mt-1 text-sm text-gray-500">
-            Selecciona hasta 4 teléfonos para comparar sus especificaciones
-          </p>
+          <h3 className="mt-2 text-lg font-medium text-gray-900">No hay teléfonos seleccionados</h3>
+          <p className="mt-1 text-sm text-gray-500">Selecciona hasta 4 teléfonos para comparar sus especificaciones</p>
         </div>
       </div>
     );
@@ -113,14 +96,14 @@ export default function SmartphoneComparisonTable({
           {selectedPhones.map((phone) => (
             <div
               key={phone.id}
-              className="flex-shrink-1 w-full rounded-3xl bg-gradient-to-br from-indigo-400 to-indigo-600 p-4 shadow-lg text-white relative"
+              className="relative w-full flex-shrink-1 rounded-3xl bg-gradient-to-br from-indigo-400 to-indigo-600 p-4 text-white shadow-lg"
             >
               <button
                 onClick={() => onRemovePhone(phone.id)}
-                className="absolute top-3 right-3 z-10 bg-white/20 hover:bg-white/30 rounded-full p-1.5 transition-colors cursor-pointer"
+                className="absolute top-3 right-3 z-10 cursor-pointer rounded-full bg-white/20 p-1.5 transition-colors hover:bg-white/30"
                 title="Eliminar de comparación"
               >
-                <svg className="w-4 h-4 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="pointer-events-none h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -134,7 +117,7 @@ export default function SmartphoneComparisonTable({
       </div>
 
       {/* Comparison Table */}
-      <div className="overflow-hidden rounded-3xl bg-white shadow-inner shadow-neutral-400 border border-neutral-200">
+      <div className="overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-inner shadow-neutral-400">
         <div className="overflow-x-auto">
           <table className="min-w-full">
             <tbody>
@@ -144,30 +127,26 @@ export default function SmartphoneComparisonTable({
                   <tr key={`category-${categoryIndex}`}>
                     <td
                       colSpan={selectedPhones.length + 1}
-                      className="bg-white px-6 py-3 text-left text-sm font-bold text-black uppercase tracking-wider border-b-2 border-indigo-200"
+                      className="border-b-2 border-indigo-200 bg-white px-6 py-3 text-left text-sm font-bold tracking-wider text-black uppercase"
                     >
                       {category.title}
                     </td>
                   </tr>
                   {/* Specs in this category */}
                   {category.specs.map((spec, specIndex) => (
-                    <tr
-                      key={`${categoryIndex}-${specIndex}`}
-                      className="hover:bg-neutral-50 transition-colors"
-                    >
-                      <td className="px-6 py-4 text-sm font-semibold text-gray-700 bg-neutral-50 border-r border-neutral-200 whitespace-nowrap w-48">
+                    <tr key={`${categoryIndex}-${specIndex}`} className="transition-colors hover:bg-neutral-50">
+                      <td className="w-48 border-r border-neutral-200 bg-neutral-50 px-6 py-4 text-sm font-semibold whitespace-nowrap text-gray-700">
                         {spec.label}
                       </td>
                       {selectedPhones.map((phone) => {
                         const value = phone[spec.key as keyof Smartphone];
-                        const displayValue = spec.format && typeof value === "number" 
-                          ? spec.format(value) 
-                          : String(value);
-                        
+                        const displayValue =
+                          spec.format && typeof value === "number" ? spec.format(value) : String(value);
+
                         return (
                           <td
                             key={phone.id}
-                            className="px-6 py-4 text-sm text-gray-900 border-r border-neutral-100 last:border-r-0"
+                            className="border-r border-neutral-100 px-6 py-4 text-sm text-gray-900 last:border-r-0"
                           >
                             {displayValue}
                           </td>

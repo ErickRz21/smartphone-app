@@ -45,11 +45,11 @@ export default function SmartphoneSelector({
   return (
     <div className="space-y-4">
       {/* Selection Counter */}
-      <div className="rounded-3xl bg-gradient-to-r from-indigo-400 to-indigo-600 p-4 shadow-inner shadow-indigo-700 text-white">
+      <div className="rounded-3xl bg-gradient-to-r from-indigo-400 to-indigo-600 p-4 text-white shadow-inner shadow-indigo-700">
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-lg font-semibold">Selecciona teléfonos para comparar</h3>
-            <p className="text-sm opacity-90 mt-1">
+            <p className="mt-1 text-sm opacity-90">
               {selectedPhones.length} de {maxSelection} seleccionados
             </p>
           </div>
@@ -61,27 +61,23 @@ export default function SmartphoneSelector({
 
       {/* Search and Filter */}
       <div className="rounded-3xl bg-white p-4 shadow-inner shadow-neutral-400">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Buscar teléfono
-            </label>
+            <label className="mb-2 block text-sm font-medium text-gray-700">Buscar teléfono</label>
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Buscar por marca o modelo..."
-              className="w-full px-4 py-2 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="w-full rounded-2xl border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Filtrar por marca
-            </label>
+            <label className="mb-2 block text-sm font-medium text-gray-700">Filtrar por marca</label>
             <select
               value={selectedBrand}
               onChange={(e) => setSelectedBrand(e.target.value)}
-              className="w-full px-4 py-3.5 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="w-full rounded-2xl border border-gray-300 px-4 py-3.5 focus:border-transparent focus:ring-2 focus:ring-indigo-500"
             >
               <option value="">Todas las marcas</option>
               {brands.map((brand) => (
@@ -95,7 +91,7 @@ export default function SmartphoneSelector({
       </div>
 
       {/* Phone List */}
-      <div className="rounded-3xl bg-white shadow-inner shadow-neutral-400 overflow-hidden">
+      <div className="overflow-hidden rounded-3xl bg-white shadow-inner shadow-neutral-400">
         <div className="max-h-96 overflow-y-auto">
           <div className="grid grid-cols-2">
             {filteredSmartphones.slice(0, 50).map((phone) => {
@@ -107,9 +103,9 @@ export default function SmartphoneSelector({
                   disabled={!selected && !canSelect}
                   className={`p-4 text-left transition-all duration-200 ${
                     selected
-                      ? "bg-indigo-50/50 border-l-4 border-indigo-500"
-                      : "hover:bg-neutral-100/50 border-l-4 border-transparent"
-                  } ${!selected && !canSelect ? "opacity-40 cursor-not-allowed grayscale" : "cursor-pointer hover:scale-[1.01]"}`}
+                      ? "border-l-4 border-indigo-500 bg-indigo-50/50"
+                      : "border-l-4 border-transparent hover:bg-neutral-100/50"
+                  } ${!selected && !canSelect ? "cursor-not-allowed opacity-40 grayscale" : "cursor-pointer hover:scale-[1.01]"}`}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
@@ -118,7 +114,7 @@ export default function SmartphoneSelector({
                           <div className="font-semibold text-gray-900">
                             {phone.brand_name} {phone.model}
                           </div>
-                          <div className="text-sm text-gray-600 mt-1">
+                          <div className="mt-1 text-sm text-gray-600">
                             {phone.operating_system} • {phone.ram}GB RAM • {phone.storage}GB • $
                             {phone.price.toLocaleString()} | {phone.release_year}
                           </div>
@@ -127,8 +123,8 @@ export default function SmartphoneSelector({
                     </div>
                     <div className="ml-4">
                       {selected ? (
-                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-500 text-white">
-                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-500 text-white">
+                          <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                             <path
                               fillRule="evenodd"
                               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -137,7 +133,7 @@ export default function SmartphoneSelector({
                           </svg>
                         </div>
                       ) : (
-                        <div className="w-8 h-8 rounded-full border-2 border-gray-300"></div>
+                        <div className="h-8 w-8 rounded-full border-2 border-gray-300"></div>
                       )}
                     </div>
                   </div>
@@ -146,12 +142,10 @@ export default function SmartphoneSelector({
             })}
           </div>
           {filteredSmartphones.length === 0 && (
-            <div className="p-8 text-center text-gray-500">
-              No se encontraron teléfonos con los filtros aplicados
-            </div>
+            <div className="p-8 text-center text-gray-500">No se encontraron teléfonos con los filtros aplicados</div>
           )}
           {filteredSmartphones.length > 50 && (
-            <div className="p-4 text-center text-sm text-gray-500 bg-neutral-50 border-t border-neutral-200">
+            <div className="border-t border-neutral-200 bg-neutral-50 p-4 text-center text-sm text-gray-500">
               Mostrando 50 de {filteredSmartphones.length} resultados. Refina tu búsqueda para ver más.
             </div>
           )}

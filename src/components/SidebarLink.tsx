@@ -17,7 +17,7 @@ export default function SidebarLink({ href, children }: Props) {
     <Link href={href}>
       <div
         className={clsx(
-          "mx-2 my-1 flex items-center rounded-xl px-4 py-3 text-base text-black duration-100 hover:bg-neutral-100 border border-transparent",
+          "mx-2 my-1 flex items-center rounded-xl border border-transparent px-4 py-3 text-base text-black duration-100 hover:bg-neutral-100",
           {
             "border-neutral-300! bg-neutral-100 text-black duration-100": pathname === href,
           },

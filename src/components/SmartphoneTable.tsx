@@ -120,7 +120,7 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
   return (
     <div className="space-y-4">
       {/* Filters Section */}
-      <div className="space-y-4 rounded-2xl bg-white p-4 shadow-md border border-neutral-100">
+      <div className="space-y-4 rounded-2xl border border-neutral-100 bg-white p-4 shadow-md">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold">Filtros</h3>
           <button onClick={clearFilters} className="cursor-pointer text-sm text-indigo-600 hover:text-indigo-800">
@@ -203,7 +203,7 @@ export default function SmartphoneTable({ smartphones }: SmartphoneTableProps) {
       </div>
 
       {/* Table */}
-      <div className="overflow-hidden rounded-2xl bg-white shadow-md border border-neutral-100">
+      <div className="overflow-hidden rounded-2xl border border-neutral-100 bg-white shadow-md">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-neutral-50">

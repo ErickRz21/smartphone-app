@@ -34,12 +34,10 @@ export default function DiscoverClient({ smartphones }: DiscoverClientProps) {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Comparador de Smartphones</h1>
-        <p className="mt-2 text-gray-600">
-          Compara hasta 4 teléfonos lado a lado para encontrar el mejor para ti
-        </p>
+        <p className="mt-2 text-gray-600">Compara hasta 4 teléfonos lado a lado para encontrar el mejor para ti</p>
       </div>
 
-      <div className="grid grid-cols-1 2xl:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 2xl:grid-cols-2">
         {/* Left: Phone Selector */}
         <div>
           <SmartphoneSelector
@@ -52,10 +50,7 @@ export default function DiscoverClient({ smartphones }: DiscoverClientProps) {
 
         {/* Right: Comparison Table */}
         <div className="lg:col-span-1">
-          <SmartphoneComparisonTable
-            selectedPhones={selectedPhones}
-            onRemovePhone={handleRemovePhone}
-          />
+          <SmartphoneComparisonTable selectedPhones={selectedPhones} onRemovePhone={handleRemovePhone} />
         </div>
       </div>
     </div>
